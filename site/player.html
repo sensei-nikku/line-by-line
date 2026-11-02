@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Audio Guide</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="player">
+<header class="bar">
+  <a id="home" class="icon" href="./" aria-label="All tracks">&#9776;</a>
+  <div class="titles">
+    <div id="day" class="day"></div>
+    <div id="track" class="track"></div>
+  </div>
+  <button id="speed" class="pill" aria-label="Playback speed">1&times;</button>
+</header>
+
+<main id="reader" class="reader" aria-live="off"></main>
+
+<button id="follow" class="follow" hidden>Back to where the voice is</button>
+
+<footer class="controls">
+  <div class="progress"><div id="fill" class="fill"></div></div>
+  <div class="row">
+    <button id="prev" class="ctl" aria-label="Back one line">&#8634;</button>
+    <button id="play" class="play" aria-label="Play">&#9654;</button>
+    <button id="next" class="ctl" aria-label="Forward one line">&#8635;</button>
+  </div>
+  <div id="turn" class="turn" hidden>
+    <div id="turnLabel" class="turnLabel"></div>
+    <button id="done" class="done">I'm done. Keep going</button>
+  </div>
+  <a id="nextTrack" class="nextTrack" hidden></a>
+</footer>
+
+<audio id="audio" preload="auto"></audio>
+
+<script src="js/player.js"></script>
+</body>
+</html>

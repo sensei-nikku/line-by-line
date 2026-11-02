@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Guides</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <h1 id="heading">Audio Guides</h1>
+  <p class="sub">Pick the part you're working on. The audio stops at each card so you can do it.</p>
+  <div id="days"></div>
+</div>
+<script>
+(() => {
+  const only = new URLSearchParams(location.search).get('c');
+  const box = document.getElementById('days');
+  const fmt = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
+  fetch('audio/manifest.json').then(r => r.json()).then(m => {
+    const courses = m.courses.filter(c => !only || c.id === only);
+    if (only && courses[0]) document.getElementById('heading').textContent = `${courses[0].title} Audio Guides`;
+    courses.forEach(c => {
+      if (!only && m.courses.length > 1) {
+        const h = document.createElement('h2'); h.className = 'course'; h.textContent = c.title; box.appendChild(h);
+      }
+      c.days.forEach(d => {
+        const card = document.createElement('section');
+        card.className = 'daycard';
+        const h = document.createElement('h2'); h.textContent = d.title; card.appendChild(h);
+        d.tracks.forEach(t => {
+          const a = document.createElement('a');
+          a.className = 'tracklink';
+          a.href = `player.html?d=${c.id}/${d.id}&t=${t.n}`;
+          a.innerHTML = '<span></span><span class="dur"></span>';
+          a.firstChild.textContent = `Track ${t.n}: ${t.title}`;
+          a.lastChild.textContent = fmt(t.duration);
+          card.appendChild(a);
+        });
+        box.appendChild(card);
+      });
+    });
+    if (!courses.length) box.textContent = 'No tracks yet.';
+  }).catch(() => { box.textContent = 'No tracks yet.'; });
+})();
+</script>
+</body>
+</html>

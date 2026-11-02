@@ -1,0 +1,8 @@
+# Exact versions so a library update can't silently change the voice.
+# torch is installed separately from the CPU-only index (see the workflow).
+kokoro==0.9.4
+misaki[en]==0.9.4
+transformers==4.51.3
+numpy==2.2.6
+soundfile==0.14.0
+num2words==0.5.14
