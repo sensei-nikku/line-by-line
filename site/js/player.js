@@ -41,7 +41,7 @@
       }
       reader.appendChild(el);
     });
-    audio.src = `${base}.mp3`;
+    audio.src = `audio/${day}/${data.audio || `t${pad}.mp3`}`;
     audio.playbackRate = speeds[speedIdx];
     $('speed').textContent = speeds[speedIdx] + '×';
     const saved = parseFloat(store.get(posKey) || '0');

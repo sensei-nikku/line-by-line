@@ -6,7 +6,7 @@ Reads   content/<course>/<day>.md   (narration scripts)
         site/                       (static player files)
 Writes  _site/                      (the finished site; never committed)
 
-Every track becomes _site/audio/<course>/<day>/tNN.mp3 plus tNN.json. The JSON
+Every track becomes _site/audio/<course>/<day>/tNN.m4a (AAC) plus tNN.json. The JSON
 holds the start and end time of every line, so the reader highlights exactly
 what the voice is saying. Tracks whose text has not changed are reused from the
 previous build (CI restores _site/audio from its cache).
@@ -27,6 +27,7 @@ PRON_FILE = ROOT / "config" / "pronunciations.json"
 SR = 24000                                         # Kokoro's sample rate
 GAP_LINE, GAP_PARA, GAP_PAUSE = 0.30, 0.70, 0.60   # seconds of silence
 KOKORO_VOICE, KOKORO_SPEED = "af_heart", 0.92      # calm American English voice
+AUDIO_EXT, AUDIO_BITRATE = ".m4a", "40k"            # AAC: plays on every phone and browser
 SLUG = re.compile(r"^[a-z0-9-]+$")
 PRON = {k: v for k, v in json.loads(PRON_FILE.read_text()).items() if not k.startswith("_")}
 
@@ -122,7 +123,7 @@ class Kokoro:
 def silence(sec):
     return np.zeros(int(sec * SR), np.float32)
 
-def build_track(tts, track, mp3):
+def build_track(tts, track, out_file):
     chunks, t, items, last_p = [], 0.0, [], None
     for it in track["items"]:
         if it["k"] == "pause":
@@ -141,7 +142,8 @@ def build_track(tts, track, mp3):
     chunks.append(silence(0.5)); t += 0.5
     pcm = np.clip(np.concatenate(chunks), -1, 1).astype(np.float32)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1",
-                    "-i", "-", "-b:a", "64k", str(mp3)], input=pcm.tobytes(), check=True)
+                    "-i", "-", "-c:a", "aac", "-b:a", AUDIO_BITRATE, "-movflags", "+faststart",
+                    str(out_file)], input=pcm.tobytes(), check=True)
     return items, round(t, 2)
 
 def copy_static(out):
@@ -179,24 +181,24 @@ def main():
             ddir.mkdir(parents=True, exist_ok=True)
             day = {"id": script.stem, "title": title, "tracks": []}
             for tr in tracks:
-                mp3 = ddir / f"t{tr['n']:02d}.mp3"
-                js = mp3.with_suffix(".json")
-                keep.update({mp3, js})
+                audio_file = ddir / f"t{tr['n']:02d}{AUDIO_EXT}"
+                js = audio_file.with_suffix(".json")
+                keep.update({audio_file, js})
                 spoken = [speakable(i["text"]) if i["k"] == "line" else "[P]" + i["label"] for i in tr["items"]]
-                key = hashlib.sha256(json.dumps([engine_name, GAP_LINE, GAP_PARA, GAP_PAUSE, tr["title"], spoken,
+                key = hashlib.sha256(json.dumps([engine_name, AUDIO_EXT, AUDIO_BITRATE, GAP_LINE, GAP_PARA, GAP_PAUSE, tr["title"], spoken,
                                                  [i.get("text") for i in tr["items"]]]).encode()).hexdigest()[:16]
                 old = json.loads(js.read_text()) if js.exists() else {}
                 label = f"{cdir.name}/{script.stem} track {tr['n']}: {tr['title']}"
-                if not args.force and old.get("hash") == key and mp3.exists():
+                if not args.force and old.get("hash") == key and audio_file.exists():
                     print(f"  same   {label}")
                     data = old
                 else:
                     if tts is None:
                         tts = Kokoro() if args.engine == "kokoro" else Espeak()
                     print(f"  build  {label}", flush=True)
-                    items, dur = build_track(tts, tr, mp3)
+                    items, dur = build_track(tts, tr, audio_file)
                     data = {"course": cdir.name, "day": script.stem, "dayTitle": title, "n": tr["n"],
-                            "title": tr["title"], "duration": dur, "hash": key, "engine": engine_name,
+                            "title": tr["title"], "duration": dur, "hash": key, "engine": engine_name, "audio": audio_file.name,
                             "items": items}
                     js.write_text(json.dumps(data, indent=1), encoding="utf-8")
                 day["tracks"].append({"n": tr["n"], "title": tr["title"], "duration": data["duration"]})
@@ -205,7 +207,7 @@ def main():
 
     # drop audio for tracks or days that no longer exist, so the cache doesn't grow forever
     for f in list(audio_root.rglob("*")):
-        if f.is_file() and f.suffix in (".mp3", ".json") and f.parent != audio_root and f not in keep:
+        if f.is_file() and f.suffix in (".mp3", ".m4a", ".json") and f.parent != audio_root and f not in keep:
             f.unlink()
             print(f"  remove {f.relative_to(audio_root)}")
     (audio_root / "manifest.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8")
