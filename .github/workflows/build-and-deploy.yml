@@ -1,0 +1,65 @@
+name: Build audio and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"   # Kokoro supports 3.10 to 3.12
+
+      - name: Restore the voice model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: voice-model-kokoro-0.9.4
+
+      # Reuse audio from the last build; only changed tracks are regenerated.
+      - name: Restore built audio
+        uses: actions/cache@v4
+        with:
+          path: _site/audio
+          key: audio-${{ hashFiles('content/**', 'config/**', 'tools/**', 'requirements.txt') }}
+          restore-keys: audio-
+
+      - name: Install tools
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q espeak-ng ffmpeg
+          pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Build the site
+        run: python tools/build_audio.py --engine kokoro
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

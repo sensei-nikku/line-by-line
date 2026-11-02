@@ -1,0 +1,14 @@
+# build output (CI makes this; never commit it)
+_site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS and editor clutter
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
