@@ -8,6 +8,7 @@ Running it is free. GitHub Pages hosts the site, and GitHub Actions makes the au
 ```
 content/<course>/<day>.md     narration scripts (the only thing you edit routinely)
 content/<course>/course.json  the course's display title
+content/<course>/cast.json    story characters and their voices
 config/pronunciations.json    how the voice says codes and acronyms
 tools/build_audio.py          turns scripts into audio + timing files
 site/                         the player (HTML, CSS, JS)
@@ -47,6 +48,13 @@ A paragraph. Each sentence becomes one line in the reader.
 [PAUSE: Do card 1A.]
 ```
 Write numbers the way students should see them (`$1,195`, `3.5%`, `MB`). The build converts them to speech.
+
+### Stories with character voices
+Put `@Name` right before a quote to give it that character's voice:
+```
+@Marisol"He stays late to fix his mistakes," she said.
+```
+Everything else is read by the Narrator. Each course lists its characters and their voices in `content/<course>/cast.json`. A name that isn't in the cast stops the build with a message saying who to add. Two Kokoro voices joined with a comma (`"am_michael,am_fenrir"`) blend into a new voice.
 
 ## Local test (optional)
 ```

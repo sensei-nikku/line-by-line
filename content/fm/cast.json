@@ -1,0 +1,11 @@
+{
+  "_how": "Who speaks in this course's stories. Narrator reads everything that isn't a @Name\"quote\". Voices are Kokoro voice names; two names joined with a comma, like \"am_michael,am_fenrir\", blend into a new voice. Change a voice, push, and only tracks with that character rebuild.",
+  "Narrator": "af_heart",
+  "Jordan": "am_puck",
+  "Marisol": "af_bella",
+  "Julioberto": "am_fenrir",
+  "Yvette": "af_sarah",
+  "Ray": "am_michael",
+  "Dad": "am_michael,am_fenrir",
+  "Brooke": "af_nicole"
+}

@@ -26,6 +26,7 @@ CONTENT, STATIC = ROOT / "content", ROOT / "site"
 PRON_FILE = ROOT / "config" / "pronunciations.json"
 SR = 24000                                         # Kokoro's sample rate
 GAP_LINE, GAP_PARA, GAP_PAUSE = 0.30, 0.70, 0.60   # seconds of silence
+GAP_VOICE = 0.08                                   # between narrator and a character mid-line
 KOKORO_VOICE, KOKORO_SPEED = "af_heart", 0.92      # calm American English voice
 AUDIO_EXT, AUDIO_BITRATE = ".m4a", "40k"            # AAC: plays on every phone and browser
 SLUG = re.compile(r"^[a-z0-9-]+$")
@@ -33,9 +34,34 @@ PRON = {k: v for k, v in json.loads(PRON_FILE.read_text()).items() if not k.star
 
 
 # ---------------------------------------------------------------- parsing
+VOICED = re.compile(r'@([A-Za-z][\w-]*)\s*"|"')
+
+def split_voices(line, spk):
+    """Split a line into (speaker, text) segments. @Name"..." is spoken by Name;
+    everything else by the narrator (None). spk is the speaker of a quote left
+    open by the previous line. Returns (segments, speaker still open)."""
+    segs, pos, buf = [], 0, ""
+    for m in VOICED.finditer(line):
+        if m[1] and spk is None:                       # @Name" opens a voiced quote
+            buf += line[pos:m.start()]
+            if buf.strip():
+                segs.append((None, buf))
+            buf, spk = '"', m[1]
+        elif m[1] is None and spk is not None:         # closing quote
+            buf += line[pos:m.end()]
+            segs.append((spk, buf))
+            buf, spk = "", None
+        else:                                          # an ordinary quote mark
+            buf += line[pos:m.start()] + '"'
+        pos = m.end()
+    buf += line[pos:]
+    if buf.strip():
+        segs.append((spk, buf))
+    return segs, spk
+
 def parse(md):
     """Return (title, tracks). A track is {n, title, items}; an item is a
-    line {k:'line', text, p} or a pause {k:'pause', label}."""
+    line {k:'line', text, p, segs} or a pause {k:'pause', label}."""
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
     m = re.search(r"^#\s+(.+)$", md, re.M)
     title = m[1].strip() if m else "Untitled"
@@ -55,9 +81,12 @@ def parse(md):
             continue
         b = re.sub(r"\*\*?(.+?)\*\*?", r"\1", b)            # strip markdown emphasis
         para += 1
-        for sent in re.split(r"(?:(?<=[.!?][\"”])|(?<=[.!?]))\s+(?=[\"“A-Z0-9$])", b):
+        spk = None
+        for sent in re.split(r"(?:(?<=[.!?][\"”])|(?<=[.!?]))\s+(?=[\"“@A-Z0-9$])", b):
             if sent.strip():
-                cur["items"].append({"k": "line", "text": sent.strip(), "p": para})
+                segs, spk = split_voices(sent.strip(), spk)
+                text = re.sub(r'@[A-Za-z][\w-]*\s*(?=")', "", sent.strip())
+                cur["items"].append({"k": "line", "text": text, "p": para, "segs": segs})
     return title, tracks
 
 
@@ -76,6 +105,12 @@ def _decimal(m):
     head = "" if m[1] == "0" else _words(int(m[1])) + " "
     return head + "point " + " ".join(_words(int(c)) for c in m[2])
 
+def _time(m):
+    h, mi = int(m[1]), int(m[2])
+    if mi == 0:
+        return f"{_words(h)} o'clock"
+    return f"{_words(h)} {'oh ' if mi < 10 else ''}{_words(mi)}"
+
 def _number(m):
     n = int(m[0].replace(",", ""))
     if "," not in m[0] and 1900 <= n <= 2099:
@@ -87,6 +122,7 @@ def speakable(text):
     for k in sorted(PRON, key=len, reverse=True):           # longest first: 2A-R before 2A
         s = re.sub(rf"(?<![\w-]){re.escape(k)}(?![\w-])", PRON[k], s)
     s = re.sub(r"\$(\d[\d,]*)(?:\.(\d\d))?", _money, s)
+    s = re.sub(r"\b(\d{1,2}):(\d{2})\b", _time, s)
     s = re.sub(r"(\d+)\.(\d+)%", lambda m: _decimal(m) + " percent", s)
     s = re.sub(r"(\d+)%", lambda m: _words(int(m[1])) + " percent", s)
     s = re.sub(r"\b(\d+)\.(\d+)\b", _decimal, s)
@@ -96,10 +132,14 @@ def speakable(text):
 
 # ---------------------------------------------------------------- voices
 class Espeak:
+    """Robotic test voice. Each Kokoro voice name gets its own pitch so you can
+    hear who is talking."""
     name = "espeak"
-    def __call__(self, text):
+    def __call__(self, text, voice):
+        pitch = str(20 + int(hashlib.md5(voice.encode()).hexdigest(), 16) % 60)
+        variant = "en-us+f3" if voice.startswith(("af_", "bf_")) else "en-us"
         with tempfile.NamedTemporaryFile(suffix=".wav") as f:
-            subprocess.run(["espeak-ng", "-v", "en-us", "-s", "150", "-w", f.name, text], check=True)
+            subprocess.run(["espeak-ng", "-v", variant, "-p", pitch, "-s", "150", "-w", f.name, text], check=True)
             with wave.open(f.name) as w:
                 sr = w.getframerate()
                 a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
@@ -111,9 +151,9 @@ class Kokoro:
     def __init__(self):
         from kokoro import KPipeline
         self.pipe = KPipeline(lang_code="a")
-    def __call__(self, text):
+    def __call__(self, text, voice):
         parts = []
-        for _, _, audio in self.pipe(text, voice=KOKORO_VOICE, speed=KOKORO_SPEED):
+        for _, _, audio in self.pipe(text, voice=voice, speed=KOKORO_SPEED):
             if audio is not None:
                 parts.append(audio.detach().cpu().numpy() if hasattr(audio, "detach") else np.asarray(audio))
         return np.concatenate(parts).astype(np.float32) if parts else np.zeros(SR // 4, np.float32)
@@ -123,7 +163,18 @@ class Kokoro:
 def silence(sec):
     return np.zeros(int(sec * SR), np.float32)
 
-def build_track(tts, track, out_file):
+def speak_line(tts, segs, cast, narrator):
+    """Speak one line, switching voices between narration and quotes."""
+    parts = []
+    for spk, text in segs:
+        if not re.search(r"\w", text):
+            continue
+        if parts:
+            parts.append(silence(GAP_VOICE))
+        parts.append(tts(speakable(text.strip()), cast[spk] if spk else narrator))
+    return np.concatenate(parts) if parts else silence(0.2)
+
+def build_track(tts, track, out_file, cast, narrator):
     chunks, t, items, last_p = [], 0.0, [], None
     for it in track["items"]:
         if it["k"] == "pause":
@@ -134,7 +185,7 @@ def build_track(tts, track, out_file):
         if last_p is not None:
             gap = GAP_PARA if it["p"] != last_p else GAP_LINE
             chunks.append(silence(gap)); t += gap
-        audio = tts(speakable(it["text"]))
+        audio = speak_line(tts, it["segs"], cast, narrator)
         items.append({"k": "line", "t": round(t, 2), "e": round(t + len(audio) / SR, 2),
                       "text": it["text"], "p": it["p"]})
         chunks.append(audio); t += len(audio) / SR
@@ -173,6 +224,9 @@ def main():
             sys.exit(f"Course folder '{cdir.name}' must be lowercase letters, numbers, and dashes.")
         meta = json.loads((cdir / "course.json").read_text()) if (cdir / "course.json").exists() else {}
         course = {"id": cdir.name, "title": meta.get("title", cdir.name.upper()), "days": []}
+        cast_file = cdir / "cast.json"
+        cast = {k: v for k, v in json.loads(cast_file.read_text()).items() if not k.startswith("_")} if cast_file.exists() else {}
+        narrator = cast.get("Narrator", KOKORO_VOICE)
         for script in sorted(cdir.glob("*.md")):
             if not SLUG.match(script.stem):
                 sys.exit(f"Script '{script.name}' must be named like w05-d1.md.")
@@ -184,8 +238,14 @@ def main():
                 audio_file = ddir / f"t{tr['n']:02d}{AUDIO_EXT}"
                 js = audio_file.with_suffix(".json")
                 keep.update({audio_file, js})
-                spoken = [speakable(i["text"]) if i["k"] == "line" else "[P]" + i["label"] for i in tr["items"]]
-                key = hashlib.sha256(json.dumps([engine_name, AUDIO_EXT, AUDIO_BITRATE, GAP_LINE, GAP_PARA, GAP_PAUSE, tr["title"], spoken,
+                speakers = {spk for i in tr["items"] if i["k"] == "line" for spk, _ in i["segs"] if spk}
+                missing = sorted(sp for sp in speakers if sp not in cast)
+                if missing:
+                    sys.exit(f"{script.name}: add {', '.join(missing)} to {cdir.name}/cast.json")
+                voices = {"Narrator": narrator, **{sp: cast[sp] for sp in sorted(speakers)}}
+                spoken = [[(sp, speakable(t)) for sp, t in i["segs"]] if i["k"] == "line" else "[P]" + i["label"]
+                          for i in tr["items"]]
+                key = hashlib.sha256(json.dumps([engine_name, voices, AUDIO_EXT, AUDIO_BITRATE, GAP_LINE, GAP_PARA, GAP_PAUSE, GAP_VOICE, tr["title"], spoken,
                                                  [i.get("text") for i in tr["items"]]]).encode()).hexdigest()[:16]
                 old = json.loads(js.read_text()) if js.exists() else {}
                 label = f"{cdir.name}/{script.stem} track {tr['n']}: {tr['title']}"
@@ -196,9 +256,9 @@ def main():
                     if tts is None:
                         tts = Kokoro() if args.engine == "kokoro" else Espeak()
                     print(f"  build  {label}", flush=True)
-                    items, dur = build_track(tts, tr, audio_file)
+                    items, dur = build_track(tts, tr, audio_file, cast, narrator)
                     data = {"course": cdir.name, "day": script.stem, "dayTitle": title, "n": tr["n"],
-                            "title": tr["title"], "duration": dur, "hash": key, "engine": engine_name, "audio": audio_file.name,
+                            "title": tr["title"], "duration": dur, "hash": key, "engine": engine_name, "audio": audio_file.name, "voices": voices,
                             "items": items}
                     js.write_text(json.dumps(data, indent=1), encoding="utf-8")
                 day["tracks"].append({"n": tr["n"], "title": tr["title"], "duration": data["duration"]})
