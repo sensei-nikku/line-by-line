@@ -25,8 +25,10 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT, STATIC = ROOT / "content", ROOT / "site"
 PRON_FILE = ROOT / "config" / "pronunciations.json"
 SR = 24000                                         # Kokoro's sample rate
-GAP_LINE, GAP_PARA, GAP_PAUSE = 0.30, 0.70, 0.60   # seconds of silence
-GAP_VOICE = 0.08                                   # between narrator and a character mid-line
+# Each clip is trimmed to the speech itself, so these gaps are the only pauses.
+GAP_LINE, GAP_PARA, GAP_PAUSE = 0.18, 0.32, 0.60   # seconds: between sentences, paragraphs, before a card
+GAP_VOICE = 0.04                                   # narrator <-> character inside one sentence
+TRIM_DB = -40                                      # anything quieter than this at the ends is cut
 KOKORO_VOICE, KOKORO_SPEED = "af_heart", 0.92      # calm American English voice
 AUDIO_EXT, AUDIO_BITRATE = ".m4a", "40k"            # AAC: plays on every phone and browser
 SLUG = re.compile(r"^[a-z0-9-]+$")
@@ -163,6 +165,20 @@ class Kokoro:
 def silence(sec):
     return np.zeros(int(sec * SR), np.float32)
 
+def trim(a, pad=0.02):
+    """Cut the silence the voice adds before and after each clip."""
+    frame = int(SR * 0.01)
+    n = len(a) // frame
+    if n == 0:
+        return a
+    rms = np.sqrt((a[:n * frame].reshape(n, frame) ** 2).mean(1) + 1e-12)
+    loud = np.where(rms > rms.max() * 10 ** (TRIM_DB / 20))[0]
+    if loud.size == 0:
+        return a
+    start = max(0, loud[0] * frame - int(pad * SR))
+    end = min(len(a), (loud[-1] + 1) * frame + int(pad * SR))
+    return a[start:end]
+
 def speak_line(tts, segs, cast, narrator):
     """Speak one line, switching voices between narration and quotes."""
     parts = []
@@ -171,7 +187,7 @@ def speak_line(tts, segs, cast, narrator):
             continue
         if parts:
             parts.append(silence(GAP_VOICE))
-        parts.append(tts(speakable(text.strip()), cast[spk] if spk else narrator))
+        parts.append(trim(tts(speakable(text.strip()), cast[spk] if spk else narrator)))
     return np.concatenate(parts) if parts else silence(0.2)
 
 def build_track(tts, track, out_file, cast, narrator):
@@ -245,7 +261,7 @@ def main():
                 voices = {"Narrator": narrator, **{sp: cast[sp] for sp in sorted(speakers)}}
                 spoken = [[(sp, speakable(t)) for sp, t in i["segs"]] if i["k"] == "line" else "[P]" + i["label"]
                           for i in tr["items"]]
-                key = hashlib.sha256(json.dumps([engine_name, voices, AUDIO_EXT, AUDIO_BITRATE, GAP_LINE, GAP_PARA, GAP_PAUSE, GAP_VOICE, tr["title"], spoken,
+                key = hashlib.sha256(json.dumps([engine_name, voices, AUDIO_EXT, AUDIO_BITRATE, GAP_LINE, GAP_PARA, GAP_PAUSE, GAP_VOICE, TRIM_DB, tr["title"], spoken,
                                                  [i.get("text") for i in tr["items"]]]).encode()).hexdigest()[:16]
                 old = json.loads(js.read_text()) if js.exists() else {}
                 label = f"{cdir.name}/{script.stem} track {tr['n']}: {tr['title']}"
