@@ -25,11 +25,12 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT, STATIC = ROOT / "content", ROOT / "site"
 PRON_FILE = ROOT / "config" / "pronunciations.json"
 SR = 24000                                         # Kokoro's sample rate
-# Each clip is trimmed to the speech itself, so these gaps are the only pauses.
-GAP_LINE, GAP_PARA, GAP_PAUSE = 0.18, 0.32, 0.60   # seconds: between sentences, paragraphs, before a card
-GAP_VOICE = 0.04                                   # narrator <-> character inside one sentence
+# The voice reads a whole paragraph at once, so pauses between sentences are its own.
+# Clips are trimmed to the speech itself, so these gaps are the only added pauses.
+GAP_PARA, GAP_PAUSE = 0.32, 0.60                   # seconds: between paragraphs, before a card
+GAP_VOICE = 0.04                                   # when the speaker changes
 TRIM_DB = -40                                      # anything quieter than this at the ends is cut
-KOKORO_VOICE, KOKORO_SPEED = "af_heart", 0.92      # calm American English voice
+KOKORO_VOICE, KOKORO_SPEED = "af_heart", 1.0       # calm American English voice, normal speed
 AUDIO_EXT, AUDIO_BITRATE = ".m4a", "40k"            # AAC: plays on every phone and browser
 SLUG = re.compile(r"^[a-z0-9-]+$")
 PRON = {k: v for k, v in json.loads(PRON_FILE.read_text()).items() if not k.startswith("_")}
@@ -146,7 +147,7 @@ class Espeak:
                 sr = w.getframerate()
                 a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
         x = np.linspace(0, len(a) - 1, int(len(a) * SR / sr))
-        return np.interp(x, np.arange(len(a)), a).astype(np.float32)
+        return np.interp(x, np.arange(len(a)), a).astype(np.float32), []   # no word timings
 
 class Kokoro:
     name = f"kokoro-{KOKORO_VOICE}-{KOKORO_SPEED}"
@@ -154,11 +155,20 @@ class Kokoro:
         from kokoro import KPipeline
         self.pipe = KPipeline(lang_code="a")
     def __call__(self, text, voice):
-        parts = []
-        for _, _, audio in self.pipe(text, voice=voice, speed=KOKORO_SPEED):
-            if audio is not None:
-                parts.append(audio.detach().cpu().numpy() if hasattr(audio, "detach") else np.asarray(audio))
-        return np.concatenate(parts).astype(np.float32) if parts else np.zeros(SR // 4, np.float32)
+        """Return (audio, words): words are (text, start, end) in seconds."""
+        parts, words, offset = [], [], 0.0
+        for r in self.pipe(text, voice=voice, speed=KOKORO_SPEED):
+            a = r.audio
+            if a is None:
+                continue
+            a = a.detach().cpu().numpy() if hasattr(a, "detach") else np.asarray(a)
+            for tk in r.tokens or []:
+                if tk.start_ts is not None and tk.end_ts is not None:
+                    words.append((tk.text, offset + tk.start_ts, offset + tk.end_ts))
+            parts.append(a)
+            offset += len(a) / SR
+        audio = np.concatenate(parts).astype(np.float32) if parts else np.zeros(SR // 4, np.float32)
+        return audio, words
 
 
 # ---------------------------------------------------------------- build
@@ -170,42 +180,87 @@ def trim(a, pad=0.02):
     frame = int(SR * 0.01)
     n = len(a) // frame
     if n == 0:
-        return a
+        return a, 0.0
     rms = np.sqrt((a[:n * frame].reshape(n, frame) ** 2).mean(1) + 1e-12)
     loud = np.where(rms > rms.max() * 10 ** (TRIM_DB / 20))[0]
     if loud.size == 0:
-        return a
+        return a, 0.0
     start = max(0, loud[0] * frame - int(pad * SR))
     end = min(len(a), (loud[-1] + 1) * frame + int(pad * SR))
-    return a[start:end]
+    return a[start:end], start / SR
 
-def speak_line(tts, segs, cast, narrator):
-    """Speak one line, switching voices between narration and quotes."""
-    parts = []
-    for spk, text in segs:
-        if not re.search(r"\w", text):
-            continue
+def speak_paragraph(tts, lines, cast, narrator):
+    """Speak a paragraph in as few voice calls as possible: one per run of the
+    same speaker. Returns (audio, [(start, end)] for each line, in seconds)."""
+    runs = []                                       # [speaker, [(line index, text)]]
+    for li, line in enumerate(lines):
+        for spk, text in line["segs"]:
+            if not re.search(r"\w", text):
+                continue
+            if runs and runs[-1][0] == spk:
+                runs[-1][1].append((li, text.strip()))
+            else:
+                runs.append([spk, [(li, text.strip())]])
+    parts, t = [], 0.0
+    span = [[None, None] for _ in lines]
+    for spk, pieces in runs:
         if parts:
-            parts.append(silence(GAP_VOICE))
-        parts.append(trim(tts(speakable(text.strip()), cast[spk] if spk else narrator)))
-    return np.concatenate(parts) if parts else silence(0.2)
+            parts.append(silence(GAP_VOICE)); t += GAP_VOICE
+        spoken, spans = "", []
+        for li, text in pieces:
+            if spoken:
+                spoken += " "
+            start = len(spoken)
+            spoken += speakable(text)
+            spans.append((li, start, len(spoken)))
+        audio, words = tts(spoken, cast[spk] if spk else narrator)
+        audio, lead = trim(audio)
+        dur = len(audio) / SR
+        located, pos = [], 0                        # word timings matched to characters
+        for w, ws, we in words:
+            w = w.strip()
+            k = spoken.find(w, pos) if w else -1
+            if k >= 0:
+                located.append((k, ws - lead, we - lead))
+                pos = k + len(w)
+        for li, cs, ce in spans:
+            inside = [(ws, we) for k, ws, we in located if cs <= k < ce]
+            if inside:
+                a, b = inside[0][0], inside[-1][1]
+            else:                                   # no timings: estimate by length
+                a, b = dur * cs / len(spoken), dur * ce / len(spoken)
+            a = min(max(0.0, a), dur); b = min(max(a, b), dur)
+            old = span[li]
+            span[li] = [t + a if old[0] is None else min(old[0], t + a),
+                        t + b if old[1] is None else max(old[1], t + b)]
+        parts.append(audio); t += dur
+    times = [(a if a is not None else t, b if b is not None else t) for a, b in span]
+    return (np.concatenate(parts) if parts else silence(0.2)), times
 
 def build_track(tts, track, out_file, cast, narrator):
-    chunks, t, items, last_p = [], 0.0, [], None
+    groups = []                                     # ("pause", item) or ("para", [line items])
     for it in track["items"]:
         if it["k"] == "pause":
-            items.append({"k": "pause", "t": round(t + 0.15, 2), "label": it["label"]})
+            groups.append(("pause", it))
+        elif groups and groups[-1][0] == "para" and groups[-1][1][-1]["p"] == it["p"]:
+            groups[-1][1].append(it)
+        else:
+            groups.append(("para", [it]))
+    chunks, t, items, prev = [], 0.0, [], None
+    for kind, g in groups:
+        if kind == "pause":
+            items.append({"k": "pause", "t": round(t + 0.15, 2), "label": g["label"]})
             chunks.append(silence(GAP_PAUSE)); t += GAP_PAUSE
-            last_p = None
+            prev = "pause"
             continue
-        if last_p is not None:
-            gap = GAP_PARA if it["p"] != last_p else GAP_LINE
-            chunks.append(silence(gap)); t += gap
-        audio = speak_line(tts, it["segs"], cast, narrator)
-        items.append({"k": "line", "t": round(t, 2), "e": round(t + len(audio) / SR, 2),
-                      "text": it["text"], "p": it["p"]})
+        if prev == "para":
+            chunks.append(silence(GAP_PARA)); t += GAP_PARA
+        audio, times = speak_paragraph(tts, g, cast, narrator)
+        for line, (a, b) in zip(g, times):
+            items.append({"k": "line", "t": round(t + a, 2), "e": round(t + b, 2),
+                          "text": line["text"], "p": line["p"]})
         chunks.append(audio); t += len(audio) / SR
-        last_p = it["p"]
+        prev = "para"
     chunks.append(silence(0.5)); t += 0.5
     pcm = np.clip(np.concatenate(chunks), -1, 1).astype(np.float32)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1",
@@ -261,7 +316,7 @@ def main():
                 voices = {"Narrator": narrator, **{sp: cast[sp] for sp in sorted(speakers)}}
                 spoken = [[(sp, speakable(t)) for sp, t in i["segs"]] if i["k"] == "line" else "[P]" + i["label"]
                           for i in tr["items"]]
-                key = hashlib.sha256(json.dumps([engine_name, voices, AUDIO_EXT, AUDIO_BITRATE, GAP_LINE, GAP_PARA, GAP_PAUSE, GAP_VOICE, TRIM_DB, tr["title"], spoken,
+                key = hashlib.sha256(json.dumps([engine_name, voices, AUDIO_EXT, AUDIO_BITRATE, "paragraph", GAP_PARA, GAP_PAUSE, GAP_VOICE, TRIM_DB, tr["title"], spoken,
                                                  [i.get("text") for i in tr["items"]]]).encode()).hexdigest()[:16]
                 old = json.loads(js.read_text()) if js.exists() else {}
                 label = f"{cdir.name}/{script.stem} track {tr['n']}: {tr['title']}"
