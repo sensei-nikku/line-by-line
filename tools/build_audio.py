@@ -28,7 +28,7 @@ SR = 24000                                         # Kokoro's sample rate
 # The voice reads a whole paragraph at once, so pauses between sentences are its own.
 # Clips are trimmed to the speech itself, so these gaps are the only added pauses.
 GAP_PARA, GAP_PAUSE = 0.32, 0.60                   # seconds: between paragraphs, before a card
-GAP_VOICE = 0.04                                   # when the speaker changes
+GAP_VOICE = 0.15                                   # when the speaker changes (was 0.04; turns ran together)
 TRIM_DB = -40                                      # anything quieter than this at the ends is cut
 KOKORO_VOICE, KOKORO_SPEED = "af_heart", 1.0       # calm American English voice, normal speed
 AUDIO_EXT, AUDIO_BITRATE = ".m4a", "40k"            # AAC: plays on every phone and browser
