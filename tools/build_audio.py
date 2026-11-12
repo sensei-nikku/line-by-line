@@ -66,6 +66,8 @@ def parse(md):
     """Return (title, tracks). A track is {n, title, items}; an item is a
     line {k:'line', text, p, segs} or a pause {k:'pause', label}."""
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
+    md = re.sub(r"\[\[.*?\]\]", "", md, flags=re.S)            # [[print only]]: the handout shows it, the voice skips it
+    md = re.sub(r"\{\{(.*?)\}\}", r"\1", md, flags=re.S)       # {{audio only}}: the voice reads it, the handout skips it
     m = re.search(r"^#\s+(.+)$", md, re.M)
     title = m[1].strip() if m else "Untitled"
     tracks, cur, para = [], None, 0

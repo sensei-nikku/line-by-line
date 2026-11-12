@@ -54,7 +54,12 @@ Put `@Name` right before a quote to give it that character's voice:
 ```
 @Marisol"He stays late to fix his mistakes," she said.
 ```
-Everything else is read by the Narrator. Each course lists its characters and their voices in `content/<course>/cast.json`. A name that isn't in the cast stops the build with a message saying who to add. Two Kokoro voices joined with a comma (`"am_michael,am_fenrir"`) blend into a new voice.
+Everything else is read by the Narrator.
+
+The same script can also feed a printed handout. Text in `[[double brackets]]` is print-only, so the voice skips it (use it for "Ruth said," tags that readers need and listeners don't). Text in `{{double braces}}` is audio-only, so the voice reads it and the handout leaves it out (use it for a document read as prose, when the page shows it as a list instead):
+```
+[[Ruth said, ]]@Ruth"Same money. Different day."
+``` Each course lists its characters and their voices in `content/<course>/cast.json`. A name that isn't in the cast stops the build with a message saying who to add. Two Kokoro voices joined with a comma (`"am_michael,am_fenrir"`) blend into a new voice.
 
 ## Local test (optional)
 ```
