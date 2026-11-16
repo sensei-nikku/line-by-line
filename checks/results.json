@@ -1,146 +1,57 @@
 {
  "w7d1a": {
-  "title": "Khan Academy: Amortization Schedules and Time to Pay Off",
+  "title": "Two Cents: Should You Consolidate Your Debt?",
   "checks": [
    {
-    "url": "https://www.youtube.com/embed/QEdQw9pZV14",
+    "url": "https://www.pbs.org/video/should-you-consolidate-your-debt-w7iqnc",
     "status": 200,
-    "page_title": "YouTube",
-    "iframes": [],
-    "clicked": [],
-    "video": {
-     "t": 0,
-     "d": NaN,
-     "rs": 0,
-     "paused": false,
-     "err": null,
-     "src": "",
-     "frame": "https://www.youtube.com/embed/QEdQw9pZV14"
-    },
-    "video_later": {
-     "t": 0,
-     "d": NaN,
-     "rs": 0,
-     "paused": false,
-     "err": null,
-     "src": "",
-     "frame": "https://www.youtube.com/embed/QEdQw9pZV14"
-    },
-    "unavailable_text": [],
-    "pass": false
-   },
-   {
-    "url": "https://www.youtube-nocookie.com/embed/QEdQw9pZV14",
-    "status": 200,
-    "page_title": "YouTube",
-    "iframes": [],
-    "clicked": [],
-    "video": {
-     "t": 0,
-     "d": NaN,
-     "rs": 0,
-     "paused": false,
-     "err": null,
-     "src": "",
-     "frame": "https://www.youtube-nocookie.com/embed/QEdQw9pZV14"
-    },
-    "video_later": {
-     "t": 0,
-     "d": NaN,
-     "rs": 0,
-     "paused": false,
-     "err": null,
-     "src": "",
-     "frame": "https://www.youtube-nocookie.com/embed/QEdQw9pZV14"
-    },
-    "unavailable_text": [],
-    "pass": false
-   }
-  ]
- },
- "w7d1b": {
-  "title": "FTC: Minimum Payments on Credit Cards",
-  "checks": [
-   {
-    "url": "https://www.ftc.gov/media/79864",
-    "status": 403,
-    "page_title": "",
-    "iframes": [],
-    "clicked": [],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [],
-    "pass": false
-   },
-   {
-    "url": "https://player.vimeo.com/video/352557753",
-    "status": 401,
-    "page_title": "Vimeo",
+    "page_title": "Two Cents | Should You Consolidate Your Debt? | Season 5 | PBS",
     "iframes": [
-     "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rchCqZWf8VUm0UFOVRqbt6WYznMMevkg_8FkvLhYth4o200w0ASh7KX8EH90TnWOJR2QQzBp-kSSUPU",
-     "about:blank"
-    ],
-    "clicked": [],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [],
-    "pass": false
-   }
-  ]
- },
- "w7d2a": {
-  "title": "Two Cents: Are Payday Loans Ever a Good Idea?",
-  "checks": [
-   {
-    "url": "https://www.pbs.org/video/are-payday-loans-ever-a-good-idea-wlg0p0",
-    "status": 200,
-    "page_title": "Two Cents | Are Payday Loans Ever a Good Idea? | Season 5 | PBS",
-    "iframes": [
-     "https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-payday-loans-ever-a-good-idea-wl",
+     "https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iq",
      "https://imasdk.googleapis.com/js/core/bridge3.799.0_en.html#compression_dictionary_version=%22m202611100101%22&deid=%22%22&eventfe_experiment_ids=%5B%5D&fid=%22",
      "about:blank",
      "about:blank",
      "about:blank",
      "about:blank",
-     "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-payday-loans-ever-a-good-idea-wlg0p0%2F"
+     "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iqnc%2F"
     ],
     "clicked": [
-     "iframe center https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?pa"
+     "iframe center https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?par"
     ],
     "video": {
-     "t": 8.141316,
-     "d": 353.2859999999996,
+     "t": 8.141191,
+     "d": 326.79299999999967,
      "rs": 4,
      "paused": false,
      "err": null,
-     "src": "blob:https://player.pbs.org/e5af11cd-bdfa-4532-b71b-6feb16e564f7",
-     "frame": "https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-payday-loans-ever-a-good-idea-wl"
+     "src": "blob:https://player.pbs.org/1169f043-cc13-41d8-90ff-ad91b6896394",
+     "frame": "https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iq"
     },
     "video_later": {
-     "t": 66.201313,
-     "d": 353.2859999999996,
+     "t": 66.187992,
+     "d": 326.79299999999967,
      "rs": 4,
      "paused": false,
      "err": null,
-     "src": "blob:https://player.pbs.org/e5af11cd-bdfa-4532-b71b-6feb16e564f7",
-     "frame": "https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-payday-loans-ever-a-good-idea-wl"
+     "src": "blob:https://player.pbs.org/1169f043-cc13-41d8-90ff-ad91b6896394",
+     "frame": "https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iq"
     },
     "unavailable_text": [],
     "pass": true
    }
   ]
  },
- "w7d2b": {
-  "title": "It's a Money Thing: Predatory Lending",
+ "w7d1b": {
+  "title": "It's a Money Thing: Loan Basics",
   "checks": [
    {
-    "url": "https://oregonianscu.com/financial-learning/money-thing/predatory-lending",
+    "url": "https://oregonianscu.com/financial-learning/money-thing/loan-basics",
     "status": 200,
-    "page_title": "Predatory Lending | Oregonians Credit Union",
+    "page_title": "Loan Basics | Oregonians Credit Union",
     "iframes": [
      "about:blank",
-     "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fwww.oregonianscu.com",
      "about:blank",
+     "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fwww.oregonianscu.com",
      "about:srcdoc",
      "about:blank"
     ],
@@ -153,16 +64,35 @@
     "pass": false
    },
    {
-    "url": "https://blog.americaschristiancu.com/its-a-money-thing/predatory-lending",
+    "url": "https://www.umassfive.coop/loan-basics",
+    "status": 404,
+    "page_title": "Page not found | UMassFive",
+    "iframes": [
+     "about:blank",
+     "https://9d7a2a30-7cb5-41d8-8dac-c41e61631416.rlets.com/static/storage.html",
+     "https://connect.segmint.net/iframe/doughnut/en1oo5od7x",
+     "about:blank",
+     "about:blank"
+    ],
+    "clicked": [],
+    "video": null,
+    "video_later": null,
+    "unavailable_text": [
+     "Page not found"
+    ],
+    "pass": false
+   },
+   {
+    "url": "https://blog.americaschristiancu.com/its-a-money-thing/loan-basics",
     "status": 200,
-    "page_title": "Predatory Lending",
+    "page_title": "Loan Basics",
     "iframes": [
      "about:blank",
      "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fblog.americaschristiancu.com",
      "about:blank"
     ],
     "clicked": [
-     "[class*=\"play-button\" i] in https://blog.americaschristiancu.com/its-a-money-thing/preda"
+     "[class*=\"play-button\" i] in https://blog.americaschristiancu.com/its-a-money-thing/loan-"
     ],
     "video": null,
     "video_later": null,
@@ -171,83 +101,43 @@
    }
   ]
  },
- "w7d3a": {
-  "title": "Two Cents: What's the Fastest Way to Pay Off Debt?",
+ "w7d1c": {
+  "title": "It's a Money Thing: Compound Interest Mind Bend",
   "checks": [
    {
-    "url": "https://www.pbs.org/video/hacking-your-brain-to-get-out-of-debt-6kyrbi",
-    "status": 200,
-    "page_title": "Two Cents | What's The Fastest Way To Pay Off Debt? | Season 1 | PBS",
+    "url": "https://oregonianscu.com/financial-learning/money-thing/compound-interest-mind-bend",
+    "status": 404,
+    "page_title": "",
     "iframes": [
-     "https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fhacking-your-brain-to-get-out-of",
-     "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fhacking-your-brain-to-get-out-of-debt-6kyrbi%2F",
-     "https://imasdk.googleapis.com/js/core/bridge3.799.0_en.html#compression_dictionary_version=%22m202611100101%22&deid=%22%22&eventfe_experiment_ids=%5B%5D&fid=%22",
-     "about:blank",
-     "about:blank",
-     "about:blank",
+     "about:srcdoc",
      "about:blank"
     ],
-    "clicked": [
-     "iframe center https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi"
+    "clicked": [],
+    "video": null,
+    "video_later": null,
+    "unavailable_text": [
+     "Page not found",
+     "404"
     ],
-    "video": {
-     "t": 8.181327,
-     "d": 309.20899999999983,
-     "rs": 4,
-     "paused": false,
-     "err": null,
-     "src": "blob:https://player.pbs.org/261ecd55-0297-424a-b7ee-0a2efa7d5d0b",
-     "frame": "https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fhacking-your-brain-to-get-out-of"
-    },
-    "video_later": {
-     "t": 66.841761,
-     "d": 309.20899999999983,
-     "rs": 4,
-     "paused": false,
-     "err": null,
-     "src": "blob:https://player.pbs.org/261ecd55-0297-424a-b7ee-0a2efa7d5d0b",
-     "frame": "https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fhacking-your-brain-to-get-out-of"
-    },
-    "unavailable_text": [],
-    "pass": true
-   }
-  ]
- },
- "w7d3b": {
-  "title": "It's a Money Thing: Strategies for Debt Repayment",
-  "checks": [
+    "pass": false
+   },
    {
-    "url": "https://www.umassfive.coop/strategies-debt-repayment",
-    "status": 200,
-    "page_title": "Strategies for Debt Repayment | UMassFive",
+    "url": "https://www.umassfive.coop/compound-interest-mind-bend",
+    "status": 404,
+    "page_title": "Page not found | UMassFive",
     "iframes": [
-     "https://app-3qnjo4li8k.marketingautomation.services/prospector/form/MzawMDE3szSyAAA/SzIzTzI1TDXSTTQxT9Q1MTA20000tzDVNTYyTbQ0NDMwNElNBQA?agentreferrer__sb=https%",
      "about:blank",
      "https://9d7a2a30-7cb5-41d8-8dac-c41e61631416.rlets.com/static/storage.html",
-     "about:blank",
      "https://connect.segmint.net/iframe/doughnut/en1oo5od7x",
      "about:blank"
     ],
-    "video": {
-     "t": 7.974646,
-     "d": 212.13699999999994,
-     "rs": 4,
-     "paused": false,
-     "err": null,
-     "src": "blob:https://www.umassfive.coop/717f254d-5c3e-432a-9bb2-9c40249d1fcf",
-     "frame": "https://www.umassfive.coop/its-money-thing/strategies-debt-repayment"
-    },
-    "video_later": {
-     "t": 63.270909,
-     "d": 212.13699999999994,
-     "rs": 4,
-     "paused": false,
-     "err": null,
-     "src": "blob:https://www.umassfive.coop/717f254d-5c3e-432a-9bb2-9c40249d1fcf",
-     "frame": "https://www.umassfive.coop/its-money-thing/strategies-debt-repayment"
-    },
-    "unavailable_text": [],
-    "pass": true
+    "clicked": [],
+    "video": null,
+    "video_later": null,
+    "unavailable_text": [
+     "Page not found"
+    ],
+    "pass": false
    }
   ]
  }
