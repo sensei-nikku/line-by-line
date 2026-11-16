@@ -16,7 +16,7 @@ PROBE = """async () => {
   if (!vs.length) return null;
   const v = vs.sort((a,b)=> (b.clientWidth*b.clientHeight)-(a.clientWidth*a.clientHeight))[0];
   v.muted = true;
-  try { await v.play(); } catch (e) {}
+  try { await Promise.race([v.play(), new Promise(r => setTimeout(r, 4000))]); } catch (e) {}
   await new Promise(r => setTimeout(r, 8000));
   return {t: v.currentTime, d: v.duration, rs: v.readyState, paused: v.paused,
           err: v.error ? v.error.code : null, src: (v.currentSrc || v.src || '').slice(0, 120)};
@@ -34,6 +34,7 @@ def try_consent(page):
 def probe_frames(page):
     best = None
     for f in page.frames:
+        if f.is_detached(): continue
         try: r = f.evaluate(PROBE)
         except Exception as e: continue
         if r:
@@ -67,6 +68,7 @@ with sync_playwright() as p:
     b = p.chromium.launch(channel='chrome', headless=True,
                           args=['--autoplay-policy=no-user-gesture-required'])
     ctx = b.new_context(viewport={'width': 1280, 'height': 900}, locale='en-US')
+    ctx.set_default_timeout(20000)
     for code, spec in CANDS.items():
         results[code] = {'title': spec['title'], 'checks': []}
         for i, url in enumerate(spec['urls']):

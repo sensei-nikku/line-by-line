@@ -21,11 +21,13 @@ jobs:
           pip install playwright
           python -m playwright install --with-deps chrome
       - name: Open each page, press play, record
-        run: python tools/check_videos.py
+        timeout-minutes: 15
+        run: python -u tools/check_videos.py
       - name: Save results to this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git add checks
           git commit -m "Video check results" || true
+          git pull --rebase -X theirs origin video-check || true
           git push
