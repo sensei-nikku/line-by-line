@@ -8,7 +8,7 @@ One source, two versions (style rules: claude/nejc/STORY_AUDIO_STYLE.md in the F
 Matches the W7D2 handout episode (same events and numbers).
 -->
 
-## Track 0: Cash Today
+## Track 0: The Orange Envelope
 
 On the first of October, Terrence paid the Visa in full. He had run the numbers both ways, and the minimum lost. The $1,040 came out of his car fund, and the fund dropped from $1,800 to $760.
 
@@ -22,7 +22,7 @@ Terrence worked it out in his notebook. He had $760, so he was $500 short, and h
 
 On the bus home, he passed the strip mall with the check casher. The Rapid Cash store was still there, two doors down, with a new banner across the front window. It said: *Cash for your title. Keep driving your car.* Terrence had no car to drive and no title to hand over. For the first time all fall, that felt like luck.
 
-That evening, the mail held an orange envelope from Rapid Cash Online. Terrence knew the name. Last September, when his old car needed brakes, he had filled out a form at the Rapid Cash store next door to the check casher. Then he had walked out without signing.
+That evening, the mail held an orange envelope from Rapid Cash Online. Terrence knew the name. Last September, when his old car needed brakes, he had filled out a form at that same Rapid Cash store. Then he had walked out without signing.
 
 [[The flyer said: *Terrence, you're pre-approved! Get up to $500 today. Fee: just $15 for every $100 borrowed, due in 14 days. Apply online in minutes.*]]{{The flyer said he was pre-approved for up to $500 today. The fee was just $15 for every $100 he borrowed, due in fourteen days, and he could apply online in minutes.}}
 
