@@ -1,17 +1,16 @@
 {
  "_how": "Short video addresses for printed QR codes. Each code becomes https://sensei-nikku.github.io/line-by-line/v/<code>/ and sends the student to the first URL in its list that loads. When a video moves or dies, fix the list here and push; the printed QR code never changes. The site rebuilds every Monday and re-checks every URL.",
  "w7d1a": {
-  "title": "KQED: Credit Card Debt Explained",
+  "title": "Khan Academy: Amortization Schedules and Time to Pay Off",
   "urls": [
-   "https://www.youtube.com/watch?v=L5qlbISOAGA",
-   "https://www.kqed.org/lowdown/11504/animated-explainer-the-math-of-credit-card-debt"
+   "https://www.youtube.com/watch?v=QEdQw9pZV14"
   ]
  },
  "w7d1b": {
   "title": "FTC: Minimum Payments on Credit Cards",
   "urls": [
-   "https://consumer.ftc.gov/media/79864",
-   "https://vimeo.com/352557753"
+   "https://vimeo.com/352557753",
+   "https://consumer.ftc.gov/media/79864"
   ]
  },
  "w7d2a": {
