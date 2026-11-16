@@ -1,17 +1,11 @@
 {
- "w7d1a": {"title": "Khan Academy: Amortization Schedules and Time to Pay Off", "urls": [
-   "https://www.youtube.com/embed/QEdQw9pZV14",
-   "https://www.youtube-nocookie.com/embed/QEdQw9pZV14"]},
- "w7d1b": {"title": "FTC: Minimum Payments on Credit Cards", "urls": [
-   "https://www.ftc.gov/media/79864",
-   "https://player.vimeo.com/video/352557753"]},
- "w7d2a": {"title": "Two Cents: Are Payday Loans Ever a Good Idea?", "urls": [
-   "https://www.pbs.org/video/are-payday-loans-ever-a-good-idea-wlg0p0"]},
- "w7d2b": {"title": "It's a Money Thing: Predatory Lending", "urls": [
-   "https://oregonianscu.com/financial-learning/money-thing/predatory-lending",
-   "https://blog.americaschristiancu.com/its-a-money-thing/predatory-lending"]},
- "w7d3a": {"title": "Two Cents: What's the Fastest Way to Pay Off Debt?", "urls": [
-   "https://www.pbs.org/video/hacking-your-brain-to-get-out-of-debt-6kyrbi"]},
- "w7d3b": {"title": "It's a Money Thing: Strategies for Debt Repayment", "urls": [
-   "https://www.umassfive.coop/strategies-debt-repayment"]}
+ "w7d1a": {"title": "Two Cents: Should You Consolidate Your Debt?", "urls": [
+   "https://www.pbs.org/video/should-you-consolidate-your-debt-w7iqnc"]},
+ "w7d1b": {"title": "It's a Money Thing: Loan Basics", "urls": [
+   "https://oregonianscu.com/financial-learning/money-thing/loan-basics",
+   "https://www.umassfive.coop/loan-basics",
+   "https://blog.americaschristiancu.com/its-a-money-thing/loan-basics"]},
+ "w7d1c": {"title": "It's a Money Thing: Compound Interest Mind Bend", "urls": [
+   "https://oregonianscu.com/financial-learning/money-thing/compound-interest-mind-bend",
+   "https://www.umassfive.coop/compound-interest-mind-bend"]}
 }
