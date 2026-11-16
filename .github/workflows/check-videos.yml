@@ -21,7 +21,7 @@ jobs:
           pip install playwright
           python -m playwright install --with-deps chrome
       - name: Open each page, press play, record
-        timeout-minutes: 15
+        timeout-minutes: 25
         run: python -u tools/check_videos.py
       - name: Save results to this branch
         run: |

@@ -24,7 +24,7 @@ PROBE = """async () => {
 PLAY_SELECTORS = ['.ytp-large-play-button', '.vjs-big-play-button', 'button[aria-label*="Play" i]',
                   '[class*="play-button" i]', '[class*="PlayButton" i]', 'button[title*="Play" i]',
                   '.play', '[data-play-button]']
-CONSENT = ['Accept all', 'Accept All', 'Accept', 'I agree', 'I Agree', 'Got it', 'OK', 'Close']
+CONSENT = ['Accept Cookies', 'Continue', 'Accept all', 'Accept All', 'Accept', 'I agree', 'I Agree', 'Got it', 'OK', 'Close']
 
 def try_consent(page):
     for t in CONSENT:
@@ -88,6 +88,12 @@ with sync_playwright() as p:
                     v = probe_frames(page) or v
                 r['video'] = v
                 page.screenshot(path=str(OUT / f'{code}-{i}-b.png'))
+                # keep watching: past any sponsor message, into the video itself
+                page.wait_for_timeout(15000); try_consent(page)
+                page.screenshot(path=str(OUT / f'{code}-{i}-c.png'))
+                page.wait_for_timeout(25000)
+                page.screenshot(path=str(OUT / f'{code}-{i}-d.png'))
+                r['video_later'] = probe_frames(page)
                 body = page.inner_text('body')[:20000]
                 r['unavailable_text'] = [m for m in ['Video unavailable', 'This video is unavailable', "isn't available",
                     'not available', 'Sign in to confirm', 'Page not found', '404', 'Private video', 'removed']
