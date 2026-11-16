@@ -73,6 +73,8 @@ def main():
         d = out / code; d.mkdir(parents=True, exist_ok=True)
         items = "\n".join(f'<a href="{html.escape(u)}">{html.escape(urllib.parse.urlparse(u).netloc)}</a>' for u in urls)
         (d / "index.html").write_text(PAGE.format(go=html.escape(go), go_js=json.dumps(go), title=html.escape(spec["title"]), links=items))
+        if a.check:
+            print(f"{code} -> {go}  [" + ", ".join(f"{urllib.parse.urlparse(u).netloc}:{s}" for u, s in checks) + "]")
         report[code] = {"title": spec["title"], "chosen": go, "checks": [{"url": u, "status": s} for u, s in checks]}
     (out / "report.json").write_text(json.dumps(report, indent=1))
     print(f"{len(links)} short links written to {out}")
