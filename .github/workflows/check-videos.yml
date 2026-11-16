@@ -1,0 +1,31 @@
+name: Check videos actually play
+
+on:
+  push:
+    branches: [video-check]
+    paths: ["tools/video_candidates.json", "tools/check_videos.py", ".github/workflows/check-videos.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright with Google Chrome (has the video codecs Chromium lacks)
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chrome
+      - name: Open each page, press play, record
+        run: python tools/check_videos.py
+      - name: Save results to this branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add checks
+          git commit -m "Video check results" || true
+          git push
