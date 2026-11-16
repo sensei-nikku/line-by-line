@@ -28,6 +28,13 @@ _site/                        build output (not committed)
   - `t` is the track number.
 - One course's track list: `https://<username>.github.io/<repo>/?c=fm`
 
+## Short video links (for handout QR codes)
+Video pages move and die, so handouts print a short address instead: `https://<username>.github.io/<repo>/v/w7d2a/`.
+Each code is listed in `config/links.json` with a title and a list of URLs, best first. On every push and every Monday morning,
+`tools/build_links.py --check` opens each URL and points the code at the first one that loads. Anything it can't confirm shows
+up under "Video links to check by hand" in that run's summary on the Actions tab. To fix a dead video, edit its list and push;
+nothing printed has to change.
+
 ## Editing
 - **Change the narration:** edit `content/<course>/<day>.md` and push.
 - **Add a day:** add `content/fm/w05-d2.md`. Zero-pad the week number (`w05`, not `w5`) so the weeks stay in order.

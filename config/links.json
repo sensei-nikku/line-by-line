@@ -1,0 +1,23 @@
+{
+  "_how": "Short video addresses for printed QR codes. Each code becomes https://sensei-nikku.github.io/line-by-line/v/<code>/ and sends the student to the first URL in its list that loads. When a video moves or dies, fix the list here and push; the printed QR code never changes. The site rebuilds every Monday and re-checks every URL.",
+  "w7d1a": {"title": "KQED: Credit Card Debt Explained", "urls": [
+    "https://www.youtube.com/watch?v=L5qlbISOAGA",
+    "https://www.kqed.org/lowdown/11504/animated-explainer-the-math-of-credit-card-debt"]},
+  "w7d1b": {"title": "FTC: Minimum Payments on Credit Cards", "urls": [
+    "https://consumer.ftc.gov/media/79864",
+    "https://vimeo.com/352557753"]},
+  "w7d2a": {"title": "Two Cents: Are Payday Loans Ever a Good Idea?", "urls": [
+    "https://www.pbs.org/video/are-payday-loans-ever-a-good-idea-wlg0p0",
+    "https://www.pbssocal.org/shows/two-cents/episodes/are-payday-loans-ever-good-idea-8qrzhp",
+    "https://www.wgbh.org/tv-shows/two-cents/are-payday-loans-ever-good-idea-8qrzhp"]},
+  "w7d2b": {"title": "It's a Money Thing: Predatory Lending", "urls": [
+    "https://nextsteps.idaho.gov/video-library/predatory-lending",
+    "https://cuofamerica.com/Its-a-Money-Thing/Borrowing-Basics/Predatory-Lending"]},
+  "w7d3a": {"title": "Two Cents: What's the Fastest Way to Pay Off Debt?", "urls": [
+    "https://www.pbs.org/video/hacking-your-brain-to-get-out-of-debt-6kyrbi",
+    "https://www.rmpbs.org/shows/two-cents/episodes/hacking-your-brain-get-out-debt-ledmdh",
+    "https://weta.org/watch/shows/two-cents/whats-fastest-way-pay-debt"]},
+  "w7d3b": {"title": "It's a Money Thing: Strategies for Debt Repayment", "urls": [
+    "https://nextsteps.idaho.gov/video-library/strategies-for-debt-repayment",
+    "https://www.cuofamerica.com/Its-a-Money-Thing/Borrowing-Basics/Strategies-for-Debt-Repayment"]}
+}

@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "0 13 * * 1"   # Mondays 6 a.m. Arizona: re-check every video link
 
 permissions:
   contents: read
@@ -47,6 +49,9 @@ jobs:
 
       - name: Build the site
         run: python tools/build_audio.py --engine kokoro
+
+      - name: Build short video links
+        run: python tools/build_links.py --check
 
       - uses: actions/configure-pages@v5
 
