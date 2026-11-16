@@ -1,0 +1,296 @@
+{
+ "w7d1a": {
+  "title": "Khan Academy: Amortization Schedules and Time to Pay Off",
+  "checks": [
+   {
+    "url": "https://www.youtube.com/watch?v=QEdQw9pZV14",
+    "status": 200,
+    "page_title": "Amortization schedules and time to pay off | Financial mathematics (TX TEKS) | Khan Academy - YouTube",
+    "iframes": [
+     "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26ap",
+     "about:blank"
+    ],
+    "clicked": [],
+    "video": {
+     "t": 0,
+     "d": NaN,
+     "rs": 0,
+     "paused": false,
+     "err": null,
+     "src": "",
+     "frame": "https://www.youtube.com/watch?v=QEdQw9pZV14"
+    },
+    "unavailable_text": [
+     "Sign in to confirm"
+    ],
+    "pass": false
+   }
+  ]
+ },
+ "w7d1b": {
+  "title": "FTC: Minimum Payments on Credit Cards",
+  "checks": [
+   {
+    "url": "https://vimeo.com/352557753",
+    "status": 200,
+    "page_title": "Minimum Payments on Credit Cards - Personal Finance Tips",
+    "iframes": [
+     "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/vh0i1/0x4AAAAAAAe0ufFllHGZPwDJ/auto/fbE/new/normal?lang=auto"
+    ],
+    "clicked": [],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   },
+   {
+    "url": "https://consumer.ftc.gov/media/79864",
+    "status": 403,
+    "page_title": "",
+    "iframes": [],
+    "clicked": [],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   }
+  ]
+ },
+ "w7d2a": {
+  "title": "Two Cents: Are Payday Loans Ever a Good Idea?",
+  "checks": [
+   {
+    "url": "https://www.pbs.org/video/are-payday-loans-ever-a-good-idea-wlg0p0",
+    "status": 200,
+    "page_title": "Two Cents | Are Payday Loans Ever a Good Idea? | Season 5 | PBS",
+    "iframes": [
+     "https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-payday-loans-ever-a-good-idea-wl",
+     "https://imasdk.googleapis.com/js/core/bridge3.799.0_en.html#compression_dictionary_version=%22m202611100101%22&deid=%22%22&eventfe_experiment_ids=%5B%5D&fid=%22",
+     "about:blank",
+     "about:blank",
+     "about:blank",
+     "about:blank"
+    ],
+    "clicked": [
+     "iframe center https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?pa"
+    ],
+    "video": {
+     "t": 8.121942,
+     "d": 353.2859999999996,
+     "rs": 4,
+     "paused": false,
+     "err": null,
+     "src": "blob:https://player.pbs.org/d57771de-2399-43b4-b88f-e024ccac7f78",
+     "frame": "https://player.pbs.org/portalplayer/are-payday-loans-ever-a-good-idea-wlg0p0/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-payday-loans-ever-a-good-idea-wl"
+    },
+    "unavailable_text": [],
+    "pass": true
+   },
+   {
+    "url": "https://www.pbssocal.org/shows/two-cents/episodes/are-payday-loans-ever-a-good-idea-wlg0p0",
+    "status": 404,
+    "page_title": "Page Not Found \u2014 404 | PBS SoCal",
+    "iframes": [
+     "about:blank",
+     "https://12915603.fls.doubleclick.net/activityi;dc_pre=CKyLs8P6jJgDFbE6fgQdHX0V1Q;src=12915603;type=allpa0;cat=allpa0;rcb=13;ord=5474013531186;npa=0;auiddc=17712"
+    ],
+    "clicked": [],
+    "video": null,
+    "unavailable_text": [
+     "Page not found",
+     "404"
+    ],
+    "pass": false
+   },
+   {
+    "url": "https://www.wgbh.org/shows/two-cents/episodes/are-payday-loans-ever-a-good-idea-wlg0p0",
+    "status": 404,
+    "page_title": "404 | GBH",
+    "iframes": [
+     "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.wgbh.org%2Fshows%2Ftwo-cents%2Fepisodes%2Fare-payday-loans-ever-a-good-idea-wlg0p0",
+     "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LdzarcnAAAAAHHZQjw8nYEuiqgyNtjgc10orbk8&co=aHR0cHM6Ly93d3cud2diaC5vcmc6NDQz&hl=en&v=4i3aN5wAweL7i3ADI7BSX4B",
+     "about:blank",
+     "about:blank",
+     "about:blank",
+     "about:blank",
+     "https://www.google.com/recaptcha/api2/aframe",
+     "about:blank"
+    ],
+    "clicked": [
+     "button[aria-label*=\"Play\" i] in https://www.wgbh.org/shows/two-cents/episodes/are-payday-loa"
+    ],
+    "video": null,
+    "unavailable_text": [
+     "404"
+    ],
+    "pass": false
+   }
+  ]
+ },
+ "w7d2b": {
+  "title": "It's a Money Thing: Predatory Lending",
+  "checks": [
+   {
+    "url": "https://oregonianscu.com/financial-learning/money-thing/predatory-lending",
+    "status": 200,
+    "page_title": "Predatory Lending | Oregonians Credit Union",
+    "iframes": [
+     "about:blank",
+     "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fwww.oregonianscu.com",
+     "about:srcdoc",
+     "about:blank",
+     "about:blank"
+    ],
+    "clicked": [
+     "[class*=\"play-button\" i] in https://www.oregonianscu.com/financial-learning/money-thing/"
+    ],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   },
+   {
+    "url": "https://blog.americaschristiancu.com/its-a-money-thing/predatory-lending",
+    "status": 200,
+    "page_title": "Predatory Lending",
+    "iframes": [
+     "about:blank",
+     "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fblog.americaschristiancu.com",
+     "about:blank"
+    ],
+    "clicked": [
+     "[class*=\"play-button\" i] in https://blog.americaschristiancu.com/its-a-money-thing/preda"
+    ],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   },
+   {
+    "url": "https://www.firstflorida.org/about/community/its-a-money-thing/beware-of-predatory-lenders",
+    "status": 200,
+    "page_title": "Beware of Predatory Lenders - First Florida Credit Union",
+    "iframes": [
+     "https://www.firstflorida.org/includes/online-banking/index2021.html",
+     "https://www.firstflorida.org/includes/online-banking-mobile/index2021.html",
+     "about:blank",
+     "https://match.adsrvr.org/track/cei?advertiser_id=eac6kka&cookie_sync=1&upv=3.0.0&upid=zbpc43f&ref=https%3a%2f%2fwww.firstflorida.org&redirect=1",
+     "https://apps.usw2.pure.cloud/messenger/thirdparty-plugins.html",
+     "https://match.adsrvr.org/track/cmf/generic?ttd_pid=aam",
+     "https://match.adsrvr.org/track/cmf/rubicon?gdpr=0",
+     "https://ib.adnxs.com/getuid?https%3a%2f%2fmatch.adsrvr.org%2ftrack%2fcmf%2fappnexus%3fttd%3d1%26anid%3d%24UID&ttd_tdid=4466034e-c765-4670-8032-4f2cd299b332"
+    ],
+    "clicked": [],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   },
+   {
+    "url": "https://cuofamerica.com/Its-a-Money-Thing/Borrowing-Basics/Predatory-Lending",
+    "status": 403,
+    "page_title": "Just a moment...",
+    "iframes": [
+     "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/ojdu0/0x4AAAAAAADnPIDROrmt1Wwj/light/fbE/new/normal?lang=auto"
+    ],
+    "clicked": [],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   }
+  ]
+ },
+ "w7d3a": {
+  "title": "Two Cents: What's the Fastest Way to Pay Off Debt?",
+  "checks": [
+   {
+    "url": "https://www.pbs.org/video/hacking-your-brain-to-get-out-of-debt-6kyrbi",
+    "status": 200,
+    "page_title": "Two Cents | What's The Fastest Way To Pay Off Debt? | Season 1 | PBS",
+    "iframes": [
+     "https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fhacking-your-brain-to-get-out-of",
+     "https://imasdk.googleapis.com/js/core/bridge3.799.0_en.html#compression_dictionary_version=%22m202611100101%22&deid=%22%22&eventfe_experiment_ids=%5B%5D&fid=%22",
+     "about:blank",
+     "about:blank",
+     "about:blank",
+     "about:blank"
+    ],
+    "clicked": [
+     "iframe center https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi"
+    ],
+    "video": {
+     "t": 8.101489,
+     "d": 309.20899999999983,
+     "rs": 4,
+     "paused": false,
+     "err": null,
+     "src": "blob:https://player.pbs.org/7c2788cd-9b30-4db6-9093-47e0c22dfa76",
+     "frame": "https://player.pbs.org/portalplayer/hacking-your-brain-to-get-out-of-debt-6kyrbi/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fhacking-your-brain-to-get-out-of"
+    },
+    "unavailable_text": [],
+    "pass": true
+   },
+   {
+    "url": "https://weta.org/watch/shows/two-cents/hacking-your-brain-get-out-debt-6kyrbi",
+    "status": 200,
+    "page_title": "What's The Fastest Way To Pay Off Debt? | WETA+",
+    "iframes": [
+     "https://player.pbs.org/partnerplayer/LymdHkB0u4Sr0JodDksF3w==/?autoplay=true&callsign=WETA&end=0&endscreen=false&muted=false&start=0&topbar=false",
+     "https://imasdk.googleapis.com/js/core/bridge3.799.0_en.html#compression_dictionary_version=%22m202611100101%22&deid=%22%22&eventfe_experiment_ids=%5B%5D&fid=%22",
+     "about:blank",
+     "about:blank",
+     "about:blank",
+     "about:blank",
+     "about:srcdoc"
+    ],
+    "video": {
+     "t": 7.974709,
+     "d": 309.20899999999983,
+     "rs": 4,
+     "paused": false,
+     "err": null,
+     "src": "blob:https://player.pbs.org/a140923b-0c88-47f0-bef7-e49c22bed181",
+     "frame": "https://player.pbs.org/partnerplayer/LymdHkB0u4Sr0JodDksF3w==/?autoplay=true&callsign=WETA&end=0&endscreen=false&muted=false&start=0&topbar=false"
+    },
+    "unavailable_text": [],
+    "pass": true
+   }
+  ]
+ },
+ "w7d3b": {
+  "title": "It's a Money Thing: Strategies for Debt Repayment",
+  "checks": [
+   {
+    "url": "https://www.umassfive.coop/strategies-debt-repayment",
+    "status": 200,
+    "page_title": "Strategies for Debt Repayment | UMassFive",
+    "iframes": [
+     "https://app-3qnjo4li8k.marketingautomation.services/prospector/form/MzawMDE3szSyAAA/SzIzTzI1TDXSTTQxT9Q1MTA20000tzDVNTYyTbQ0NDMwNElNBQA?agentreferrer__sb=https%",
+     "about:blank",
+     "https://9d7a2a30-7cb5-41d8-8dac-c41e61631416.rlets.com/static/storage.html",
+     "about:blank",
+     "https://connect.segmint.net/iframe/doughnut/en1oo5od7x",
+     "about:blank"
+    ],
+    "video": {
+     "t": 7.977543,
+     "d": 212.13699999999994,
+     "rs": 4,
+     "paused": false,
+     "err": null,
+     "src": "blob:https://www.umassfive.coop/f8c342b8-d80b-473c-9a46-d62aec472ed3",
+     "frame": "https://www.umassfive.coop/its-money-thing/strategies-debt-repayment"
+    },
+    "unavailable_text": [],
+    "pass": true
+   },
+   {
+    "url": "https://www.cuofamerica.com/Its-a-Money-Thing/Borrowing-Basics/Strategies-for-Debt-Repayment",
+    "status": 403,
+    "page_title": "Just a moment...",
+    "iframes": [
+     "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/qf4ms/0x4AAAAAAADnPIDROrmt1Wwj/light/fbE/new/normal?lang=auto"
+    ],
+    "clicked": [],
+    "video": null,
+    "unavailable_text": [],
+    "pass": false
+   }
+  ]
+ }
+}
