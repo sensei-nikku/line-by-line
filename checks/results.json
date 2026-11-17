@@ -1,143 +1,43 @@
 {
- "w7d1a": {
-  "title": "Two Cents: Should You Consolidate Your Debt?",
+ "w7d2a": {
+  "title": "Two Cents: Are Buy Now Pay Later Loans a Good Idea?",
   "checks": [
    {
-    "url": "https://www.pbs.org/video/should-you-consolidate-your-debt-w7iqnc",
+    "url": "https://www.pbs.org/video/are-buy-now-pay-later-loans-a-good-idea-td27vn",
     "status": 200,
-    "page_title": "Two Cents | Should You Consolidate Your Debt? | Season 5 | PBS",
+    "page_title": "Two Cents | Are Buy Now Pay Later Loans a Good Idea? | Season 6 | PBS",
     "iframes": [
-     "https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iq",
+     "https://player.pbs.org/portalplayer/are-buy-now-pay-later-loans-a-good-idea-td27vn/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-buy-now-pay-later-loans-a-",
      "https://imasdk.googleapis.com/js/core/bridge3.799.0_en.html#compression_dictionary_version=%22m202611100101%22&deid=%22%22&eventfe_experiment_ids=%5B%5D&fid=%22",
      "about:blank",
      "about:blank",
      "about:blank",
      "about:blank",
-     "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iqnc%2F"
+     "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-buy-now-pay-later-loans-a-good-idea-td27vn%2F"
     ],
     "clicked": [
-     "iframe center https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?par"
+     "iframe center https://player.pbs.org/portalplayer/are-buy-now-pay-later-loans-a-good-idea-td27"
     ],
     "video": {
-     "t": 8.141191,
-     "d": 326.79299999999967,
+     "t": 8.161499,
+     "d": 421.0539999999993,
      "rs": 4,
      "paused": false,
      "err": null,
-     "src": "blob:https://player.pbs.org/1169f043-cc13-41d8-90ff-ad91b6896394",
-     "frame": "https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iq"
+     "src": "blob:https://player.pbs.org/9ff1de52-8381-40a5-b9de-993b8939fc7e",
+     "frame": "https://player.pbs.org/portalplayer/are-buy-now-pay-later-loans-a-good-idea-td27vn/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-buy-now-pay-later-loans-a-"
     },
     "video_later": {
-     "t": 66.187992,
-     "d": 326.79299999999967,
+     "t": 67.019341,
+     "d": 421.0539999999993,
      "rs": 4,
      "paused": false,
      "err": null,
-     "src": "blob:https://player.pbs.org/1169f043-cc13-41d8-90ff-ad91b6896394",
-     "frame": "https://player.pbs.org/portalplayer/should-you-consolidate-your-debt-w7iqnc/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fshould-you-consolidate-your-debt-w7iq"
+     "src": "blob:https://player.pbs.org/9ff1de52-8381-40a5-b9de-993b8939fc7e",
+     "frame": "https://player.pbs.org/portalplayer/are-buy-now-pay-later-loans-a-good-idea-td27vn/?parentURL=https%3A%2F%2Fwww.pbs.org%2Fvideo%2Fare-buy-now-pay-later-loans-a-"
     },
     "unavailable_text": [],
     "pass": true
-   }
-  ]
- },
- "w7d1b": {
-  "title": "It's a Money Thing: Loan Basics",
-  "checks": [
-   {
-    "url": "https://oregonianscu.com/financial-learning/money-thing/loan-basics",
-    "status": 200,
-    "page_title": "Loan Basics | Oregonians Credit Union",
-    "iframes": [
-     "about:blank",
-     "about:blank",
-     "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fwww.oregonianscu.com",
-     "about:srcdoc",
-     "about:blank"
-    ],
-    "clicked": [
-     "[class*=\"play-button\" i] in https://www.oregonianscu.com/financial-learning/money-thing/"
-    ],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [],
-    "pass": false
-   },
-   {
-    "url": "https://www.umassfive.coop/loan-basics",
-    "status": 404,
-    "page_title": "Page not found | UMassFive",
-    "iframes": [
-     "about:blank",
-     "https://9d7a2a30-7cb5-41d8-8dac-c41e61631416.rlets.com/static/storage.html",
-     "https://connect.segmint.net/iframe/doughnut/en1oo5od7x",
-     "about:blank",
-     "about:blank"
-    ],
-    "clicked": [],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [
-     "Page not found"
-    ],
-    "pass": false
-   },
-   {
-    "url": "https://blog.americaschristiancu.com/its-a-money-thing/loan-basics",
-    "status": 200,
-    "page_title": "Loan Basics",
-    "iframes": [
-     "about:blank",
-     "https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fblog.americaschristiancu.com",
-     "about:blank"
-    ],
-    "clicked": [
-     "[class*=\"play-button\" i] in https://blog.americaschristiancu.com/its-a-money-thing/loan-"
-    ],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [],
-    "pass": false
-   }
-  ]
- },
- "w7d1c": {
-  "title": "It's a Money Thing: Compound Interest Mind Bend",
-  "checks": [
-   {
-    "url": "https://oregonianscu.com/financial-learning/money-thing/compound-interest-mind-bend",
-    "status": 404,
-    "page_title": "",
-    "iframes": [
-     "about:srcdoc",
-     "about:blank"
-    ],
-    "clicked": [],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [
-     "Page not found",
-     "404"
-    ],
-    "pass": false
-   },
-   {
-    "url": "https://www.umassfive.coop/compound-interest-mind-bend",
-    "status": 404,
-    "page_title": "Page not found | UMassFive",
-    "iframes": [
-     "about:blank",
-     "https://9d7a2a30-7cb5-41d8-8dac-c41e61631416.rlets.com/static/storage.html",
-     "https://connect.segmint.net/iframe/doughnut/en1oo5od7x",
-     "about:blank"
-    ],
-    "clicked": [],
-    "video": null,
-    "video_later": null,
-    "unavailable_text": [
-     "Page not found"
-    ],
-    "pass": false
    }
   ]
  }
